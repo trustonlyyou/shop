@@ -5,6 +5,5 @@ package com.shop.constant;
  * 장점 : compile 시 체크할 수 있다는 장점
  */
 public enum ItemSellStatus {
-
     SELL, SOLD_OUT
 }
