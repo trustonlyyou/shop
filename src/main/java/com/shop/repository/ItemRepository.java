@@ -3,11 +3,12 @@ package com.shop.repository;
 import com.shop.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long> { // <entity type, id type>
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> { // <entity type, id type>
 
     List<Item> findByItemNm(String itemNm); // 상품명 이름 조회
 
@@ -22,4 +23,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> { // <entity t
 
     @Query(value = "select i from Item i where i.itemDetail like %:itemDetail% order by i.price desc", nativeQuery = true)
     List<Item> findByItemDetailNative(@Param("itemDetail") String itemDetail);
+
+
 }

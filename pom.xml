@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.4</version>
+		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.shop</groupId>
@@ -14,7 +14,7 @@
 	<name>shop</name>
 	<description>Shop Project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<version>8.0.33</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -49,6 +49,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>5.0.0</version>
+			<classifier>jakarta</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>5.0.0</version>
+			<classifier>jakarta</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>5.0.0</version>
 		</dependency>
 	</dependencies>
 
@@ -66,6 +83,44 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!--
+			아래의 설정은 QueryDSL을 사용하기 위한 APT (Annotation Processing Tool) 플러그인 설정
+			Maven 을 사용하여 QueryDSL 의 Q 클래스(Q-Type 클래스)를 자동으로 생성하는 역할
+			-->
+			<!-- Maven Compiler Plugin (QueryDSL Annotation Processor 설정 추가) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>11</source>  <!-- JDK 버전에 맞게 수정 -->
+					<target>11</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>com.querydsl</groupId>
+							<artifactId>querydsl-apt</artifactId>
+							<version>4.3.1</version>
+							<classifier>jpa</classifier>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>com.mysema.maven</groupId>-->
+<!--				<artifactId>apt-maven-plugin</artifactId>-->
+<!--				<version>1.1.3</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>process</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<outputDirectory>target/generated-sources/java</outputDirectory>-->
+<!--							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
